@@ -37,7 +37,7 @@ func Init(config *config.ExporterConfig, refreshPeriod time.Duration) (*exporter
 	var project selapi.Project
 	if len(resp.Projects) > 1 {
 		project = resp.Projects[0]
-		log.Printf("%d projects have been found, %s was selected", len(resp.Projects), project.Name)
+		log.Println("%d projects have been found, %s was selected", len(resp.Projects), project.Name)
 	} else if len(resp.Projects) == 1 {
 		project = resp.Projects[0]
 	} else {

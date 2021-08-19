@@ -2,6 +2,7 @@ package selapi
 
 import (
 	"encoding/json"
+	"kts/selectel-exporter/pkg/apperrors"
 	"net/http"
 )
 
@@ -29,7 +30,7 @@ func FetchProjects(token string) (*ProjectsResponse, error) {
 
 	resp := &ProjectsResponse{}
 	if err := json.Unmarshal(data, resp); err != nil {
-		return nil, err
+		return nil, apperrors.NewResponseFormatError("ProjectsResponse")
 	}
 	return resp, nil
 }

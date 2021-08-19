@@ -3,63 +3,30 @@ package selapi
 import (
 	"encoding/json"
 	"fmt"
+	"kts/selectel-exporter/pkg/apperrors"
 	"net/http"
 	"strconv"
 )
 
+type DatastoreMetric struct {
+	DatastoreId string    `json:"datastore_id"`
+	Ip          string    `json:"ip"`
+	Timestamps  []float64 `json:"timestamps"`
+	Values      []float64 `json:"values"`
+	Max         float64   `json:"max"`
+	Min         float64   `json:"min"`
+	Avg         float64   `json:"avg"`
+	Last        float64   `json:"last"`
+}
+
 type DatastoreMetricsResponses struct {
 	Metrics struct {
-		Step          float64 `json:"step"`
-		MemoryPercent []struct {
-			DatastoreId string    `json:"datastore_id"`
-			Ip          string    `json:"ip"`
-			Timestamps  []float64 `json:"timestamps"`
-			Values      []float64 `json:"values"`
-			Max         float64   `json:"max"`
-			Min         float64   `json:"min"`
-			Avg         float64   `json:"avg"`
-			Last        float64   `json:"last"`
-		} `json:"memory_percent"`
-		MemoryBytes []struct {
-			DatastoreId string    `json:"datastore_id"`
-			Ip          string    `json:"ip"`
-			Timestamps  []float64 `json:"timestamps"`
-			Values      []float64 `json:"values"`
-			Max         float64   `json:"max"`
-			Min         float64   `json:"min"`
-			Avg         float64   `json:"avg"`
-			Last        float64   `json:"last"`
-		} `json:"memory_bytes"`
-		Cpu []struct {
-			DatastoreId string    `json:"datastore_id"`
-			Ip          string    `json:"ip"`
-			Timestamps  []float64 `json:"timestamps"`
-			Values      []float64 `json:"values"`
-			Max         float64   `json:"max"`
-			Min         float64   `json:"min"`
-			Avg         float64   `json:"avg"`
-			Last        float64   `json:"last"`
-		} `json:"cpu"`
-		DiskPercent []struct {
-			DatastoreId string    `json:"datastore_id"`
-			Ip          string    `json:"ip"`
-			Timestamps  []float64 `json:"timestamps"`
-			Values      []float64 `json:"values"`
-			Max         float64   `json:"max"`
-			Min         float64   `json:"min"`
-			Avg         float64   `json:"avg"`
-			Last        float64   `json:"last"`
-		} `json:"disk_percent"`
-		DiskBytes []struct {
-			DatastoreId string    `json:"datastore_id"`
-			Ip          string    `json:"ip"`
-			Timestamps  []float64 `json:"timestamps"`
-			Values      []float64 `json:"values"`
-			Max         float64   `json:"max"`
-			Min         float64   `json:"min"`
-			Avg         float64   `json:"avg"`
-			Last        float64   `json:"last"`
-		} `json:"disk_bytes"`
+		Step          float64           `json:"step"`
+		MemoryPercent []DatastoreMetric `json:"memory_percent"`
+		MemoryBytes   []DatastoreMetric `json:"memory_bytes"`
+		Cpu           []DatastoreMetric `json:"cpu"`
+		DiskPercent   []DatastoreMetric `json:"disk_percent"`
+		DiskBytes     []DatastoreMetric `json:"disk_bytes"`
 	} `json:"metrics"`
 }
 
@@ -85,7 +52,7 @@ func FetchDatastoreMetrics(token, region, datastoreId string, start, end int64) 
 
 	resp := &DatastoreMetricsResponses{}
 	if err := json.Unmarshal(data, resp); err != nil {
-		return nil, err
+		return nil, apperrors.NewResponseFormatError("DatastoreMetricsResponses")
 	}
 	return resp, nil
 }

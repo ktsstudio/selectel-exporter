@@ -3,6 +3,7 @@ package selapi
 import (
 	"encoding/json"
 	"fmt"
+	"kts/selectel-exporter/pkg/apperrors"
 	"net/http"
 )
 
@@ -34,7 +35,7 @@ func FetchDatastores(token, region string) (*DatastoresResponse, error) {
 
 	resp := &DatastoresResponse{}
 	if err := json.Unmarshal(data, resp); err != nil {
-		return nil, err
+		return nil, apperrors.NewResponseFormatError("DatastoresResponse")
 	}
 	return resp, nil
 }
@@ -68,7 +69,7 @@ func FetchDatabases(token, region string) (*DatabasesResponse, error) {
 
 	resp := &DatabasesResponse{}
 	if err := json.Unmarshal(data, resp); err != nil {
-		return nil, err
+		return nil, apperrors.NewResponseFormatError("DatabasesResponse")
 	}
 	return resp, nil
 }

@@ -17,13 +17,14 @@ import (
 func main() {
 	exporterConfig, err := config.Parse()
 	if err != nil {
-		log.Printf("config parsing has finished with error: %v", err)
+		log.Println(err)
 		os.Exit(1)
 	}
 
 	exp, err := exporter.Init(exporterConfig, 60)
 	if err != nil {
 		log.Println(err)
+		os.Exit(1)
 	}
 
 	http.Handle("/metrics", promhttp.Handler())

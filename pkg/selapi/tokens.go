@@ -3,6 +3,7 @@ package selapi
 import (
 	"bytes"
 	"encoding/json"
+	"kts/selectel-exporter/pkg/apperrors"
 	"net/http"
 )
 
@@ -46,7 +47,7 @@ func ObtainToken(token, projectId string) (*TokensResponse, error) {
 
 	resp := &TokensResponse{}
 	if err := json.Unmarshal(data, resp); err != nil {
-		return nil, err
+		return nil, apperrors.NewResponseFormatError("TokensResponse")
 	}
 	return resp, nil
 }

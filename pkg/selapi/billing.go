@@ -2,6 +2,7 @@ package selapi
 
 import (
 	"encoding/json"
+	"kts/selectel-exporter/pkg/apperrors"
 	"net/http"
 )
 
@@ -64,7 +65,7 @@ func FetchBalance(token string) (*BalanceResponse, error) {
 
 	resp := &BalanceResponse{}
 	if err := json.Unmarshal(data, resp); err != nil {
-		return nil, err
+		return nil, apperrors.NewResponseFormatError("BalanceResponse")
 	}
 	return resp, nil
 }

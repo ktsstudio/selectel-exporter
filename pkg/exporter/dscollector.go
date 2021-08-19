@@ -88,7 +88,7 @@ func (col *datastoreCollector) loadDiskBytes(data *selapi.DatastoreMetricsRespon
 }
 
 func (col *datastoreCollector) Collect(e *exporter) error {
-	log.Printf("collect datastore metrics")
+	log.Println("collect datastore metrics")
 	start := time.Now().Add(-1 * time.Minute).Unix()
 	end := time.Now().Unix()
 	res, err := selapi.FetchDatastoreMetrics(e.openstackAccountToken, e.region, col.datastore.Id, start, end)
