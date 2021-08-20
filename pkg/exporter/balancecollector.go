@@ -1,8 +1,8 @@
 package exporter
 
 import (
+	"github.com/ktsstudio/selectel-exporter/pkg/selapi"
 	"github.com/prometheus/client_golang/prometheus"
-	"kts/selectel-exporter/pkg/selapi"
 	"log"
 )
 

@@ -2,8 +2,8 @@ package exporter
 
 import (
 	"errors"
-	"kts/selectel-exporter/pkg/config"
-	"kts/selectel-exporter/pkg/selapi"
+	"github.com/ktsstudio/selectel-exporter/pkg/config"
+	"github.com/ktsstudio/selectel-exporter/pkg/selapi"
 	"log"
 	"sync"
 	"time"

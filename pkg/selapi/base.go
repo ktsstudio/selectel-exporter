@@ -1,8 +1,8 @@
 package selapi
 
 import (
+	"github.com/ktsstudio/selectel-exporter/pkg/apperrors"
 	"io/ioutil"
-	"kts/selectel-exporter/pkg/apperrors"
 	"net/http"
 )
 

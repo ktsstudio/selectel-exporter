@@ -3,7 +3,7 @@ package selapi
 import (
 	"bytes"
 	"encoding/json"
-	"kts/selectel-exporter/pkg/apperrors"
+	"github.com/ktsstudio/selectel-exporter/pkg/apperrors"
 	"net/http"
 )
 
