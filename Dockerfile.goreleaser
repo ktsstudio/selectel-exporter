@@ -1,0 +1,3 @@
+FROM scratch
+ENTRYPOINT ["/selectel-exporter"]
+COPY selectel-exporter /
