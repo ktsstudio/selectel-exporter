@@ -11,10 +11,9 @@ Prometheus exporter для получения метрик облака [Selecte
 helm repo add kts https://ktsstudio.github.io/helm-charts
 helm install selexp --wait --set selectel.token=<token>,selectel.region=<region> kts/selectel-exporter 
 ```
-Если вы используете prometheus-operator, то укажите serviceMonitor.enabled=true и serviceMonitor.additionalLabels. 
-В additionalLabels нужно указать label, которые указаны в serviceMonitorSelector. Подробнее про [prometheus-operator](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md).
+Если вы используете prometheus-operator, то укажите serviceMonitor.enabled=true и serviceMonitor.additionalLabels. В additionalLabels нужно указать label, которые указаны в [serviceMonitorSelector](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md).
 
-Узнать подробнее про helm chart можно [тут](https://github.com/ktsstudio/helm-charts/tree/main/charts/selectel-exporter)
+Узнать подробнее про helm chart можно [тут](https://github.com/ktsstudio/helm-charts/tree/main/charts/selectel-exporter).
 
 ### Docker
 ```shell
@@ -39,8 +38,8 @@ selectel_datastore_cpu|Процент утилизации CPU
 selectel_datastore_disk_percent|Процент занимаемого диска
 selectel_datastore_disk_bytes|Занимаемая память на диске в байтах
 
-#### Атрибуты метрик
-Атрибут | Описание
+#### Label'ы метрик
+Label | Описание
 --------|----------
 project|имя проекта 
 datastore|имя хранилища
@@ -70,8 +69,8 @@ selectel_database_xact_commit_rollback|Транзакции
 selectel_database_max_tx_duration|Время выполнения самого долгого запроса
 selectel_database_connections|Количество подключений к БД
 
-#### Атрибуты метрик
-Атрибут | Описание
+#### Label'ы метрик
+Label | Описание
 --------|----------
 project|имя проекта
 datastore|имя хранилища
@@ -86,9 +85,7 @@ database|имя базы данных
 ## Баланс ([Подробнее](https://kb.selectel.ru/docs/control-panel-actions/billing/balance/))
 
 ### Основной баланс. 
-Для получения основного баланса нужно указать атрибут {account="primary"}. 
-
-Доступные метрики:
+Для получения основного баланса нужно указать label {account="primary"}. 
 
 Метрика | Описание
 --------|----------
@@ -100,8 +97,6 @@ selectel_billing_vk_rub|Голоса ВКонтакте — голоса при�
 - Баланс хранилища {account="storage"}
 - Баланс облачной платформы {account="vpc"}
 - Баланс vmware {account="vmware"}
-
-Доступные метрики:
 
 Метрика | Описание
 --------|----------
