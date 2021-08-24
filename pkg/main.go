@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"kts/selectel-exporter/pkg/config"
-	"kts/selectel-exporter/pkg/exporter"
+	"github.com/ktsstudio/selectel-exporter/pkg/config"
+	"github.com/ktsstudio/selectel-exporter/pkg/exporter"
 	"log"
 	"net/http"
 	"os"

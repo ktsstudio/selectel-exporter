@@ -1,4 +1,4 @@
-module kts/selectel-exporter
+module github.com/ktsstudio/selectel-exporter
 
 go 1.16
 
