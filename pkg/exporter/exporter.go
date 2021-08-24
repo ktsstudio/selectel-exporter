@@ -9,7 +9,10 @@ import (
 	"time"
 )
 
-type collectorFunc func(*exporter) error
+type selectelCollector interface {
+	GetInfo() string
+	Collect(e *exporter) error
+}
 
 type exporter struct {
 	token string
@@ -21,9 +24,8 @@ type exporter struct {
 	refreshPeriod time.Duration
 	stopCh chan bool
 	wg sync.WaitGroup
-	collectors []collectorFunc
+	collectors []selectelCollector
 
-	databases []selapi.Database
 	datastores []selapi.Datastore
 }
 
@@ -94,12 +96,10 @@ func (e *exporter) fetchDatastores() error {
 
 func (e *exporter) loadCollectors() {
 	for _, ds := range e.datastores {
-		collector := NewDatastoreCollector(e.project, ds)
-		e.collectors = append(e.collectors, collector.Collect)
+		e.collectors = append(e.collectors, NewDatastoreCollector(e.project, ds))
+		e.collectors = append(e.collectors, NewDatabaseCollector(e.project, ds))
 	}
-
-	collector := NewBalanceCollector(e.project)
-	e.collectors = append(e.collectors, collector.Collect)
+	e.collectors = append(e.collectors, NewBalanceCollector(e.project))
 }
 
 func (e *exporter) runCollectors() {
@@ -109,7 +109,8 @@ func (e *exporter) runCollectors() {
 		col := col
 		go func() {
 			defer wg.Done()
-			err := col(e)
+			log.Println(col.GetInfo())
+			err := col.Collect(e)
 			if err != nil {
 				log.Println(err)
 			}

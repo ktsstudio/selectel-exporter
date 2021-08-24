@@ -1,9 +1,9 @@
 package exporter
 
 import (
+	"fmt"
 	"github.com/ktsstudio/selectel-exporter/pkg/selapi"
 	"github.com/prometheus/client_golang/prometheus"
-	"log"
 	"time"
 )
 
@@ -87,8 +87,12 @@ func (col *datastoreCollector) loadDiskBytes(data *selapi.DatastoreMetricsRespon
 	}
 }
 
+func (col *datastoreCollector) GetInfo() string {
+	return fmt.Sprintf(
+		"project: %s, datastore: %s - collect datastore metrics", col.project.Name, col.datastore.Name)
+}
+
 func (col *datastoreCollector) Collect(e *exporter) error {
-	log.Println("collect datastore metrics")
 	start := time.Now().Add(-1 * time.Minute).Unix()
 	end := time.Now().Unix()
 	res, err := selapi.FetchDatastoreMetrics(e.openstackAccountToken, e.region, col.datastore.Id, start, end)
