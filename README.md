@@ -9,7 +9,7 @@ Prometheus exporter для получения метрик облака [Selecte
 Полученные данные нужно передать в переменные selectel.token и selectel.region соответственно.
 ```shell
 helm repo add kts https://ktsstudio.github.io/helm-charts
-helm install selexp --wait --set selectel.token=<token>,selectel.region=<region> kts/selectel-exporter 
+helm install selexp --wait --set selectel.token=<token>,selectel.region=<region> -n <namespace> kts/selectel-exporter 
 ```
 Если вы используете prometheus-operator, то укажите serviceMonitor.enabled=true и serviceMonitor.additionalLabels. В additionalLabels нужно указать label, которые указаны в [serviceMonitorSelector](https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md).
 
@@ -25,6 +25,14 @@ docker run --env SELECTEL_TOKEN=<token> --env SELECTEL_REGION=<region> ktshub/se
 export SELECTEL_TOKEN=<token>
 export SELECTEL_REGION=<region>
 ./selectel-exporter 
+```
+
+### Как проверить?
+
+```shell
+helm test selexp -n <namespace>
+# или
+curl --request GET --url 'http://<host>:9100/metrics' 
 ```
 
 # Доступные метрики 
@@ -44,6 +52,7 @@ Label | Описание
 project|имя проекта 
 datastore|имя хранилища
 ip|адрес узла в кластере
+role|является ли instance мастером или репликой
 
 #### Пример
     selectel_datastore_cpu{datastore="kts",ip="10.0.0.210",project="kts"} 1.787500000209541
@@ -76,6 +85,7 @@ project|имя проекта
 datastore|имя хранилища
 ip|адрес узла в кластере
 database|имя базы данных
+role|является ли instance мастером или репликой
 
 #### Пример
     selectel_database_tup_returned{database="kts",datastore="kts",ip="10.0.3.214",project="kts"} 2.1127298e+06

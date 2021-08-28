@@ -29,6 +29,7 @@ func (col *databaseCollector) registerGauge(metricName string, metric selapi.Dat
 	key := buildGaugeKey(metricName, metric.Ip, metric.DbName)
 	g, ok := col.metrics[key]
 	if !ok {
+		instance := col.datastore.GetInstance(metric.Ip)
 		g = prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: metricName,
 			ConstLabels: prometheus.Labels{
@@ -36,6 +37,7 @@ func (col *databaseCollector) registerGauge(metricName string, metric selapi.Dat
 				"datastore": col.datastore.Name,
 				"ip": metric.Ip,
 				"database": metric.DbName,
+				"role": instance.Role,
 			},
 		})
 		prometheus.MustRegister(g)

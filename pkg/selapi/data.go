@@ -7,10 +7,27 @@ import (
 	"net/http"
 )
 
+type DatastoreInstance struct {
+	Hostname string `json:"hostname"`
+	IP string `json:"ip"`
+	Role string `json:"role"`
+	Status string `json:"status"`
+}
+
 type Datastore struct {
 	Id string `json:"id"`
 	Name string `json:"name"`
 	Enabled bool `json:"enabled"`
+	Instances []DatastoreInstance `json:"instances"`
+}
+
+func (d *Datastore) GetInstance(ip string) *DatastoreInstance {
+	for _, i := range d.Instances {
+		if i.IP == ip {
+			return &i
+		}
+	}
+	return &DatastoreInstance{}
 }
 
 type DatastoresResponse struct {
