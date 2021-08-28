@@ -16,7 +16,7 @@ type datastoreMetrics struct {
 }
 
 type datastoreCollector struct {
-	project selapi.Project
+	project   selapi.Project
 	datastore selapi.Datastore
 	metrics   map[string]*datastoreMetrics
 }
@@ -31,9 +31,15 @@ func NewDatastoreCollector(project selapi.Project, datastore selapi.Datastore) *
 
 func (col *datastoreCollector) registerGauge(name string, g prometheus.Gauge, ip string, value float64) prometheus.Gauge {
 	if g == nil {
+		instance := col.datastore.GetInstance(ip)
 		g = prometheus.NewGauge(prometheus.GaugeOpts{
-			Name:        name,
-			ConstLabels: prometheus.Labels{"project": col.project.Name, "datastore": col.datastore.Name, "ip": ip},
+			Name: name,
+			ConstLabels: prometheus.Labels{
+				"project":   col.project.Name,
+				"datastore": col.datastore.Name,
+				"ip":        ip,
+				"role":      instance.Role,
+			},
 		})
 		prometheus.MustRegister(g)
 	}
