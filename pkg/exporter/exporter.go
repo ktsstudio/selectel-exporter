@@ -15,16 +15,16 @@ type selectelCollector interface {
 }
 
 type exporter struct {
-	token string
-	region string
-	project selapi.Project
+	token                 string
+	region                string
+	project               selapi.Project
 	openstackAccountToken string
-	lastTokenUpdate time.Time
+	lastTokenUpdate       time.Time
 
 	refreshPeriod time.Duration
-	stopCh chan bool
-	wg sync.WaitGroup
-	collectors []selectelCollector
+	stopCh        chan bool
+	wg            sync.WaitGroup
+	collectors    []selectelCollector
 
 	datastores []selapi.Datastore
 }
@@ -47,11 +47,11 @@ func Init(config *config.ExporterConfig, refreshPeriod time.Duration) (*exporter
 	}
 
 	e := &exporter{
-		token: config.Token,
-		region: config.Region,
-		project: project,
+		token:         config.Token,
+		region:        config.Region,
+		project:       project,
 		refreshPeriod: refreshPeriod,
-		stopCh: make(chan bool),
+		stopCh:        make(chan bool),
 	}
 	err = e.obtainToken()
 	if err != nil {
@@ -79,10 +79,10 @@ func (e *exporter) obtainToken() error {
 }
 
 func (e *exporter) checkToken() error {
-	 if e.lastTokenUpdate.Sub(time.Now()) > 24 * time.Hour {
-	 	return e.obtainToken()
-	 }
-	 return nil
+	if time.Now().Sub(e.lastTokenUpdate) > 20*time.Hour {
+		return e.obtainToken()
+	}
+	return nil
 }
 
 func (e *exporter) fetchDatastores() error {
@@ -119,7 +119,7 @@ func (e *exporter) runCollectors() {
 	wg.Wait()
 }
 
-func (e *exporter) loop()  {
+func (e *exporter) loop() {
 	log.Println("exporter loop has started")
 	e.wg.Add(1)
 	for {
