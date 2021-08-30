@@ -64,6 +64,7 @@ func (col *databaseCollector) Collect(e *exporter) error {
 	if err != nil {
 		return err
 	}
+
 	col.loadMetrics("selectel_database_locks", res.Metrics.Locks)
 	col.loadMetrics("selectel_database_deadlocks", res.Metrics.Deadlocks)
 	col.loadMetrics("selectel_database_cache_hit_ratio", res.Metrics.CacheHitRatio)
@@ -77,5 +78,17 @@ func (col *databaseCollector) Collect(e *exporter) error {
 	col.loadMetrics("selectel_database_xact_commit_rollback", res.Metrics.XActCommitRollback)
 	col.loadMetrics("selectel_database_max_tx_duration", res.Metrics.MaxTxDuration)
 	col.loadMetrics("selectel_database_connections", res.Metrics.Connections)
+
+	col.loadMetrics("selectel_database_total_connections", res.Metrics.TotalConnections)
+	col.loadMetrics("selectel_database_commands_total_delete", res.Metrics.CommandsTotalDelete)
+	col.loadMetrics("selectel_database_commands_total_insert", res.Metrics.CommandsTotalInsert)
+	col.loadMetrics("selectel_database_commands_total_select", res.Metrics.CommandsTotalSelect)
+	col.loadMetrics("selectel_database_commands_total_update", res.Metrics.CommandsTotalUpdate)
+	col.loadMetrics("selectel_database_innodb_buffer_pool_hit_ratio", res.Metrics.InnodbBufferPoolHitRatio)
+	col.loadMetrics("selectel_database_slow_queries", res.Metrics.SlowQueries)
+	col.loadMetrics("selectel_database_threads_cached", res.Metrics.ThreadsCached)
+	col.loadMetrics("selectel_database_threads_connected", res.Metrics.ThreadsConnected)
+	col.loadMetrics("selectel_database_threads_running", res.Metrics.ThreadsRunning)
+
 	return nil
 }

@@ -5,7 +5,10 @@ Prometheus exporter для получения метрик облака [Selecte
 # Установка
 
 ### Kubernetes
-Необходимо создать токен в [этом разделе](https://my.selectel.ru/profile/apikeys) и узнать в каком регионе у вас находятся ресурсы.
+Необходимо:
+- создать токен в [этом разделе](https://my.selectel.ru/profile/apikeys)
+- узнать в каком регионе у вас находятся ресурсы (взять region из GET параметров, например, https://my.selectel.ru/vpc/<uuid>/dbaas? **region=** ru-9)
+
 Полученные данные нужно передать в переменные selectel.token и selectel.region соответственно.
 ```shell
 helm repo add kts https://ktsstudio.github.io/helm-charts
