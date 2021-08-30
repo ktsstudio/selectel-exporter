@@ -41,7 +41,7 @@ func registerGauge(account, name string, project selapi.Project) prometheus.Gaug
 		Name: name,
 		ConstLabels: prometheus.Labels{"project": project.Name, "account": account},
 	})
-	prometheus.MustRegister(g)
+	Registry.MustRegister(g)
 	return g
 }
 

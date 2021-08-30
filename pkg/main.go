@@ -27,7 +27,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	http.Handle("/metrics", promhttp.Handler())
+	handler := promhttp.HandlerFor(exporter.Registry, promhttp.HandlerOpts{})
+	http.Handle("/metrics", handler)
 	srv := &http.Server{Addr: "0.0.0.0:9100", Handler: nil}
 	go func() {
 		log.Println(srv.ListenAndServe())

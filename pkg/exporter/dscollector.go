@@ -41,7 +41,7 @@ func (col *datastoreCollector) registerGauge(name string, g prometheus.Gauge, ip
 				"role":      instance.Role,
 			},
 		})
-		prometheus.MustRegister(g)
+		Registry.MustRegister(g)
 	}
 	g.Set(value)
 	return g

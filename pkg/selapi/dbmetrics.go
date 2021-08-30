@@ -28,6 +28,17 @@ type DatabaseMetricsResponses struct {
 		CacheHitRatio      []DatabaseMetric `json:"cache_hit_ratio"`
 		Deadlocks          []DatabaseMetric `json:"deadlocks"`
 		Locks              []DatabaseMetric `json:"locks"`
+		//	mysql, dbName is empty
+		TotalConnections         []DatabaseMetric `json:"total_connections"`
+		CommandsTotalDelete      []DatabaseMetric `json:"commands_total_delete"`
+		CommandsTotalInsert      []DatabaseMetric `json:"commands_total_insert"`
+		CommandsTotalSelect      []DatabaseMetric `json:"commands_total_select"`
+		CommandsTotalUpdate      []DatabaseMetric `json:"commands_total_update"`
+		InnodbBufferPoolHitRatio []DatabaseMetric `json:"innodb_buffer_pool_hit_ratio"`
+		SlowQueries              []DatabaseMetric `json:"slow_queries"`
+		ThreadsCached            []DatabaseMetric `json:"threads_cached"`
+		ThreadsConnected         []DatabaseMetric `json:"threads_connected"`
+		ThreadsRunning           []DatabaseMetric `json:"threads_running"`
 	} `json:"metrics"`
 }
 
