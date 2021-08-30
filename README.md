@@ -7,7 +7,7 @@ Prometheus exporter для получения метрик облака [Selecte
 ### Kubernetes
 Необходимо:
 - создать токен в [этом разделе](https://my.selectel.ru/profile/apikeys)
-- узнать в каком регионе у вас находятся ресурсы (взять region из GET параметров, например, https://my.selectel.ru/vpc/<uuid>/dbaas? **region=** ru-9)
+- узнать в каком регионе у вас находятся ресурсы (взять region из GET параметров, например, https://my.selectel.ru/vpc/uuid/dbaas? **region**=ru-9)
 
 Полученные данные нужно передать в переменные selectel.token и selectel.region соответственно.
 ```shell
