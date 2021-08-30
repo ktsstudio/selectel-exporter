@@ -80,6 +80,16 @@ selectel_database_xact_commit|Транзакции
 selectel_database_xact_commit_rollback|Транзакции
 selectel_database_max_tx_duration|Время выполнения самого долгого запроса
 selectel_database_connections|Количество подключений к БД
+selectel_database_total_connections|Общее количество подключений
+selectel_database_commands_total_delete|Запросы
+selectel_database_commands_total_insert|Запросы
+selectel_database_commands_total_select|Запросы
+selectel_database_commands_total_update|Запросы
+selectel_database_innodb_buffer_pool_hit_ratio|Попадание в кэш
+selectel_database_slow_queries|Медленные запросы
+selectel_database_threads_cached|Threads
+selectel_database_threads_connected|Threads
+selectel_database_threads_running|Threads
 
 #### Label'ы метрик
 Label | Описание
@@ -87,7 +97,7 @@ Label | Описание
 project|имя проекта
 datastore|имя хранилища
 ip|адрес узла в кластере
-database|имя базы данных
+database|имя базы данных (для mysql лейбл database отсутствует)
 role|является ли instance мастером или репликой
 
 #### Пример
