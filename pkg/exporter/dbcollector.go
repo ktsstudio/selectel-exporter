@@ -40,7 +40,7 @@ func (col *databaseCollector) registerGauge(metricName string, metric selapi.Dat
 				"role": instance.Role,
 			},
 		})
-		prometheus.MustRegister(g)
+		Registry.MustRegister(g)
 		col.metrics[key] = g
 	}
 	g.Set(metric.Last)

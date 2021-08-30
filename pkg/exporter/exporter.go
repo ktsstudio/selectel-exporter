@@ -4,10 +4,13 @@ import (
 	"errors"
 	"github.com/ktsstudio/selectel-exporter/pkg/config"
 	"github.com/ktsstudio/selectel-exporter/pkg/selapi"
+	"github.com/prometheus/client_golang/prometheus"
 	"log"
 	"sync"
 	"time"
 )
+
+var Registry = prometheus.NewRegistry()
 
 type selectelCollector interface {
 	GetInfo() string
