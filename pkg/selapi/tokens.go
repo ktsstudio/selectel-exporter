@@ -33,7 +33,7 @@ func ObtainToken(token, projectId string) (*TokensResponse, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest(
 		"POST",
-		"https://my.selectel.ru/api/vpc/resell/v2/tokens",
+		"https://api.selectel.ru/vpc/resell/v2/tokens",
 		bytes.NewBuffer(buf))
 	if err != nil {
 		return nil, err

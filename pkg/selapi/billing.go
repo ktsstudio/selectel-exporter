@@ -52,7 +52,7 @@ type BalanceResponse struct {
 
 func FetchBalance(token string) (*BalanceResponse, error) {
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "https://my.selectel.ru/api/v3/billing/balance", nil)
+	req, err := http.NewRequest("GET", "https://api.selectel.ru/v3/billing/balance", nil)
 	if err != nil {
 		return nil, err
 	}
